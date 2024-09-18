@@ -91,6 +91,7 @@ public class TelosAddon {
 
         if(config.getBoolean("SwingSetting")){
             HoldToSwingFeature.holdToSwing();
+            HoldToSwingFeature.holdToSwingOff();
         }
 
         if(menuKey.wasPressed()) {

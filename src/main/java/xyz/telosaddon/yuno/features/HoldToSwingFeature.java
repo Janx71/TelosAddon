@@ -33,4 +33,27 @@ public class HoldToSwingFeature {
         //Swing
         player.swingHand(Hand.MAIN_HAND);
     }
+
+    public static void holdToSwingOff(){
+        PlayerEntity player = mc.player;
+
+        if(!mc.options.attackKey.isPressed() || player == null) return;
+
+        ItemStack offItem = player.getOffHandStack();
+
+        if(offItem == null || offItem.getName().getString().equals("Air")) return;
+
+        //Check if Item is on cooldown. If yes don't swing
+        ItemCooldownManager cooldownManager = player.getItemCooldownManager();
+        if(cooldownManager.isCoolingDown(offItem.getItem())) return;
+
+        Optional<String> mythicTypeOptional = NbtUtils.getMythicType(offItem);
+        if(mythicTypeOptional.isEmpty()) return;
+
+        if(!mythicTypeOptional.get().matches("^(sword|staff|dagger|bow|katana).*")) return;
+
+        //Swing
+        player.swingHand(Hand.MAIN_HAND);
+    }
+
 }
